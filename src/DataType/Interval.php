@@ -95,6 +95,11 @@ class Interval extends AbstractDateTimeDataType implements ValueAnnotatingInterf
         [$intervalStart, $intervalEnd] = explode('/', $value->value());
         $dateStart = $this->getFormattedDateTimeFromValue($intervalStart, true, $options);
         $dateEnd = $this->getFormattedDateTimeFromValue($intervalEnd, false, $options);
+        if ($dateEnd === "9999") {
+            $dateEnd = "pågående";
+        } elseif ($dateEnd === "9998") {
+            $dateEnd = "Slutdatum okänd";
+        }
         return sprintf('%s – %s', $dateStart, $dateEnd);
     }
 
